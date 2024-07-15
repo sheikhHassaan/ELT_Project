@@ -1,0 +1,3 @@
+psql -U hassaan -h source_postgres -d source_db
+
+psql -U hassaan -h destination_postgres -d destination_db
