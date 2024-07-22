@@ -25,9 +25,6 @@ if not wait_for_postgres(credentials.source_config["host"]):
 if not wait_for_postgres(credentials.destination_config["host"]):
     exit(1)
 
-print(f"Sleep time: {60}")
-time.sleep(60)
-
 dump_command = [
     'pg_dump', 
     '-h', credentials.source_config['host'],
