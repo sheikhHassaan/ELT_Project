@@ -2,7 +2,7 @@ import credentials
 import subprocess
 import time
 
-def wait_for_postgres(host, max_retries=5, waiting_time=5):
+def wait_for_postgres(host, max_retries=5, waiting_time=1):
     retries = 1
     while retries <= max_retries:
         try:
