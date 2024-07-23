@@ -53,8 +53,8 @@ services:
       - ./custom_postgres:/dbt
       - ~/.dbt:/root
     depends_on:
-      - elt_script
-      - destination_postgres
+      elt_script:
+        condition: service_completed_successfully
     environment:
       DBT_PROFILE: default
       DBT_TARGET: dev
