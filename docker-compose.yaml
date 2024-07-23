@@ -2,7 +2,7 @@ services:
   source_postgres:
     image: postgres:15
     ports:
-      - 5432:5433
+      - 5433:5432
     networks:
       - elt_network
     environment:
@@ -15,9 +15,11 @@ services:
   destination_postgres:
     image: postgres:15
     ports:
-      - 5434:5435
+      - 5434:5432
     networks:
       - elt_network
+    depends_on:
+      - source_postgres
     environment:
       POSTGRES_DB: destination_db
       POSTGRES_USER: hassaan
@@ -33,10 +35,10 @@ services:
     depends_on:
       - source_postgres
       - destination_postgres
-  
+
   dbt:
     image: ghcr.io/dbt-labs/dbt-postgres:1.4.7
-    command: 
+    command:
       [
         "run",
         "--profiles-dir",
@@ -52,6 +54,7 @@ services:
       - ~/.dbt:/root
     depends_on:
       - elt_script
+      - destination_postgres
     environment:
       DBT_PROFILE: default
       DBT_TARGET: dev
@@ -60,3 +63,6 @@ services:
 networks:
   elt_network:
     driver: bridge
+
+volumes:
+  destination_db_data:

@@ -7,7 +7,9 @@ def wait_for_postgres(host, max_retries=5, waiting_time=5):
     while retries <= max_retries:
         try:
             result = subprocess.run(['pg_isready', '-h', host], check=True, capture_output=True, text=True) 
-            # Why are we passing these arguments above? ( check=True, capture_output=True, text=True )
+            # check=True            -> To make it throw an exception when command goes wrong.
+            # capture_output=True   -> To return the output from executing the command in the result.
+            # text=True             -> Return the result output in text format instead of bytes.
             if "accepting connections" in result.stdout:
                 print(f'→ Connected to the {host}.') 
                 return True

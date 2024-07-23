@@ -1,3 +1,5 @@
+version: 2
+
 sources:
   - name: destination_db
     description: "Raw data from the destination PostgreSQL database."
